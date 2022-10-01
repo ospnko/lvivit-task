@@ -1,0 +1,280 @@
+openapi: 3.0.0
+info:
+  title: lvivit
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: Books
+paths:
+  /v1/books:
+    get:
+      tags:
+        - Books
+      summary: Get List of Books
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: optional
+          example: '2'
+        - name: step
+          in: query
+          schema:
+            type: integer
+          description: optional
+          example: '10'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                pagination:
+                  page: 2
+                  step: 10
+                  total_items: 100
+                  total_pages: 10
+                items:
+                  - id: 11
+                    title: 'Book #10'
+                    publisher: 'Publisher #0'
+                    author: 'Author #2'
+                    genre: 'Genre #1'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 158
+                    cost:
+                      amount: 84
+                      currency: usd
+                  - id: 12
+                    title: 'Book #11'
+                    publisher: 'Publisher #1'
+                    author: 'Author #3'
+                    genre: 'Genre #2'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 557
+                    cost:
+                      amount: 65
+                      currency: usd
+                  - id: 13
+                    title: 'Book #12'
+                    publisher: 'Publisher #2'
+                    author: 'Author #0'
+                    genre: 'Genre #0'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 891
+                    cost:
+                      amount: 30
+                      currency: usd
+                  - id: 14
+                    title: 'Book #13'
+                    publisher: 'Publisher #3'
+                    author: 'Author #1'
+                    genre: 'Genre #1'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 127
+                    cost:
+                      amount: 42
+                      currency: usd
+                  - id: 15
+                    title: 'Book #14'
+                    publisher: 'Publisher #4'
+                    author: 'Author #2'
+                    genre: 'Genre #2'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 859
+                    cost:
+                      amount: 43
+                      currency: usd
+                  - id: 16
+                    title: 'Book #15'
+                    publisher: 'Publisher #0'
+                    author: 'Author #3'
+                    genre: 'Genre #0'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 673
+                    cost:
+                      amount: 94
+                      currency: usd
+                  - id: 17
+                    title: 'Book #16'
+                    publisher: 'Publisher #1'
+                    author: 'Author #0'
+                    genre: 'Genre #1'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 932
+                    cost:
+                      amount: 93
+                      currency: usd
+                  - id: 18
+                    title: 'Book #17'
+                    publisher: 'Publisher #2'
+                    author: 'Author #1'
+                    genre: 'Genre #2'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 399
+                    cost:
+                      amount: 21
+                      currency: usd
+                  - id: 19
+                    title: 'Book #18'
+                    publisher: 'Publisher #3'
+                    author: 'Author #2'
+                    genre: 'Genre #0'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 787
+                    cost:
+                      amount: 40
+                      currency: usd
+                  - id: 20
+                    title: 'Book #19'
+                    publisher: 'Publisher #4'
+                    author: 'Author #3'
+                    genre: 'Genre #1'
+                    published_at: '2022-10-01T11:13:09+00:00'
+                    words_count: 754
+                    cost:
+                      amount: 66
+                      currency: usd
+    post:
+      tags:
+        - Books
+      summary: Create Book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Book
+                publisher: Publisher
+                author: Author
+                genre: Genre
+                published_at: '2020-01-01'
+                words_count: ...
+                cost:
+                  amount: '10'
+                  currency: usd
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                item:
+                  id: 102
+                  title: Book
+                  publisher: Publisher
+                  author: Author
+                  genre: Genre
+                  published_at: '2020-01-01T00:00:00+00:00'
+                  words_count: 0
+                  cost:
+                    amount: 10
+                    currency: usd
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                  cost: This value should not be blank.
+  /v1/books/1:
+    get:
+      tags:
+        - Books
+      summary: Get Book
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                item:
+                  id: 1
+                  title: 'Book #0'
+                  publisher: 'Publisher #0'
+                  author: 'Author #0'
+                  genre: 'Genre #0'
+                  published_at: '2022-10-01T11:13:09+00:00'
+                  words_count: 653
+                  cost:
+                    amount: 94
+                    currency: usd
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book was not found
+  /v1/books/10:
+    patch:
+      tags:
+        - Books
+      summary: Update Book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Book
+                publisher: Publisher
+                author: Author
+                genre: Genre
+                published_at: '2020-01-01'
+                words_count: ...
+                cost:
+                  amount: '10'
+                  currency: usd
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                item:
+                  id: 10
+                  title: Book
+                  publisher: Publisher
+                  author: Author
+                  genre: Genre
+                  published_at: '2020-01-01T00:00:00+00:00'
+                  words_count: 0
+                  cost:
+                    amount: 10
+                    currency: usd
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book was not found
+  /v1/books/2:
+    delete:
+      tags:
+        - Books
+      summary: Delete Book
+      responses:
+        '204':
+          description: No Content
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
